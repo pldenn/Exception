@@ -18,7 +18,15 @@ public class ProductRepository {
         return products;
     }
 
-
+    public Product findById(int id) {
+        Product productById = new Product();
+        for (Product product : products) {
+            if (product.getId() == id) {
+                productById = product;
+            }
+        }
+        return productById;
+    }
 
     public Product[] removeById(int id) {
         int length = products.length - 1;
