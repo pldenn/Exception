@@ -1,5 +1,6 @@
 package repository;
 
+import exception.NotFoundException;
 import manager.ProductManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,20 +26,12 @@ class ProductRepositoryTest {
     void removeById() {
         repository.removeById(1);
         Product[] expected = {book1};
-        assertArrayEquals(repository.getAll(),expected);
+        assertArrayEquals(repository.getAll(), expected);
     }
 
     @Test
     void removeByNonexistentId() {
-        repository.removeById(14);
-        Product[] expected = {book1};
-        assertArrayEquals(repository.getAll(),expected);
+        assertThrows(NotFoundException.class, () -> repository.removeById(14));
     }
 
-    @Test
-    void removeByZeroId() {
-        repository.removeById(0);
-        Product[] expected = {book1};
-        assertArrayEquals(repository.getAll(),expected);
-    }
 }
