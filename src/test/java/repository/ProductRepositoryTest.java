@@ -23,15 +23,21 @@ class ProductRepositoryTest {
     }
 
     @Test
-    void removeById() {
+    void shouldRemoveById() {
         repository.removeById(1);
         Product[] expected = {book1};
         assertArrayEquals(repository.getAll(), expected);
     }
 
     @Test
-    void removeByNonexistentId() {
+    void shouldThrowNotFoundException() {
         assertThrows(NotFoundException.class, () -> repository.removeById(14));
+    }
+    @Test
+    void shouldThrowNotFoundExceptionWithMessage() {
+        NotFoundException exception = assertThrows(NotFoundException.class, () -> repository.removeById(14));
+        assertEquals("Please, try again. Your id [14] is not found. =(", exception.getMessage());
+
     }
 
 }
